@@ -177,6 +177,11 @@ def get_max_memory_usage(proc=psutil.Process()):
         else:
             warnings.warn("Couldn't get the max memory usage on a non-Linux platform.")
         return 0
+    print(f"number of childre are {len(proc.children())}")
+    if len(proc.children()):
+        print(f"number of children {len(proc.children())}")
+        print(f"max mem of current {max_mem}")
+        print(f"max mem of children {sum(get_max_memory_usage(c) for c in proc.children())}")
 
     return max_mem + sum(get_max_memory_usage(c) for c in proc.children())
 
